@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:sharding="http://shardingsphere.apache.org/schema/shardingsphere/sharding"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://shardingsphere.apache.org/schema/shardingsphere/sharding
+                        http://shardingsphere.apache.org/schema/shardingsphere/sharding/sharding.xsd">
+    <context:annotation-config />
+   <!-- <context:component-scan base-package="org.apache.shardingsphere.example.spring.namespace.jpa" />
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="shardingDataSource" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" p:database="MYSQL" />
+        </property>
+        <property name="packagesToScan" value="org.apache.shardingsphere.example.spring.namespace.jpa.entity" />
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />
+    <tx:annotation-driven />-->
+
+    <bean id="ds0" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds0" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <bean id="ds0sa0" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds0sa0" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <bean id="ds0sa1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds0sa1" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <bean id="ds1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds1" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <bean id="ds1sa0" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds1sa0" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <bean id="ds1sa1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/ds1sa1" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <bean id="randomStrategy" class="org.apache.shardingsphere.core.strategy.masterslave.RandomMasterSlaveLoadBalanceAlgorithm" />
+
+    <sharding:inline-strategy id="databaseStrategy" sharding-column="user_id" algorithm-expression="ds_ms$->{user_id % 2}" />
+    <sharding:inline-strategy id="orderTableStrategy" sharding-column="order_no" algorithm-expression="t_order$->{order_no % 2}" />
+
+    <sharding:key-generator id="orderKeyGenerator" type="SNOWFLAKE" column="order_no" />
+
+    <sharding:data-source id="shardingDataSource">
+        <sharding:sharding-rule data-source-names="ds0,ds0sa0,ds0sa1,ds1,ds1sa0,ds1sa1">
+            <sharding:master-slave-rules>
+                <sharding:master-slave-rule id="ds_ms0" master-data-source-name="ds0" slave-data-source-names="ds0sa0, ds0sa1" strategy-ref="randomStrategy" />
+                <sharding:master-slave-rule id="ds_ms1" master-data-source-name="ds1" slave-data-source-names="ds1sa0, ds1sa1" strategy-ref="randomStrategy" />
+            </sharding:master-slave-rules>
+            <sharding:table-rules>
+                <sharding:table-rule logic-table="t_order" actual-data-nodes="ds_ms$->{0..1}.t_order$->{0..1}" database-strategy-ref="databaseStrategy" table-strategy-ref="orderTableStrategy" key-generator-ref="orderKeyGenerator" />
+            </sharding:table-rules>
+            <sharding:binding-table-rules>
+                <sharding:binding-table-rule logic-tables="t_order" />
+            </sharding:binding-table-rules>
+            <sharding:broadcast-table-rules>
+                <sharding:broadcast-table-rule table="t_config" />
+            </sharding:broadcast-table-rules>
+        </sharding:sharding-rule>
+    </sharding:data-source>
+</beans>

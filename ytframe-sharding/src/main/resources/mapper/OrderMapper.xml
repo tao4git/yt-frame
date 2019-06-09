@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yt.core.mybaitsplus.test.mapper.TaskPic5gMapper">
+
+    <!--<resultMap id="BaseResultMap" type="com.yt.core.mybaitsplus.test.entity.TaskPic5g">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="task_type" property="taskType" jdbcType="VARCHAR"/>
+        <result column="task_data" property="taskData" jdbcType="VARCHAR"/>
+        <result column="keyword" property="keyword" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="extend_1" property="extend1" jdbcType="VARCHAR"/>
+        <result column="extend_2" property="extend2" jdbcType="VARCHAR"/>
+        <result column="extend_3" property="extend3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            status,
+            task_type,
+            task_data,
+            keyword,
+            create_time,
+            extend_1,
+            extend_2,
+            extend_3,
+        </trim>
+    </sql>
+
+    &lt;!&ndash; 根据Id查询 &ndash;&gt;
+    <select id="queryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from task_pic_5g
+        where task_type = #{taskPic.taskType} and mod(id,#{total}) = #{curNum}
+    </select>
+-->
+
+</mapper>
