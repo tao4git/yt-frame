@@ -26,3 +26,5 @@ HELP.md
 /build/
 ### VS Code ###
 .vscode/
+/mvnw
+/mvnw.cmd
