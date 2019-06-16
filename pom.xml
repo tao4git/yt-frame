@@ -65,18 +65,6 @@
                 <version>${mysql.connect.version}</version>
             </dependency>
 
-            <!--<dependency>-->
-                <!--<groupId>org.apache.shardingsphere</groupId>-->
-                <!--<artifactId>sharding-jdbc-core</artifactId>-->
-                <!--<version>${sharding-sphere.version}</version>-->
-            <!--</dependency>-->
-
-            <!--<dependency>
-                <groupId>io.shardingsphere</groupId>
-                <artifactId>sharding-jdbc-core</artifactId>
-                <version>${sharding-sphere.version}</version>
-            </dependency>-->
-
             <dependency>
                 <groupId>io.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
@@ -88,6 +76,16 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus}</version>
             </dependency>
+
+
+            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+            <!--<dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.8</version>
+                <scope>provided</scope>
+            </dependency>-->
+
 
         </dependencies>
 
