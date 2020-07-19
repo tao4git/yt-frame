@@ -1,6 +1,6 @@
 package com.yintao.ytframe.nosql.mongo.dao;
 
-import com.yintao.ytframe.nosql.domain.DeviceData;
+import com.yintao.ytframe.nosql.mongo.domain.DeviceData;
 import com.yintao.ytframe.nosql.mongo.base.MongoBaseDao;
 import org.springframework.stereotype.Repository;
 
