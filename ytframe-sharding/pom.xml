@@ -16,7 +16,7 @@
     <properties>
         <java.version>1.8</java.version>
         <druid.version>1.1.16</druid.version>
-        <mysql.connect.version>5.1.47</mysql.connect.version>
+        <mysql.connect.version>8.0.16</mysql.connect.version>
         <sharding.jdbc.version>3.0.0</sharding.jdbc.version>
         <mybatis-plus>3.1.1</mybatis-plus>
     </properties>
